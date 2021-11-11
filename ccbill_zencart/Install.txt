@@ -1,0 +1,170 @@
+
+=== Installation ===
+
+The CCBill ZenCart billing module enables easy integration of your CCBill account within the ZenCart e-commerce platform.  Installation involves the following steps:
+ -Installing the CCBill payment module for ZenCart
+ -Configuring your CCBill account for use with ZenCart
+ -Configuring the module with your CCBill account information
+
+
+The CCBill ZenCart module is installed by uploading the plugin code downloaded from the CCBill website into the corresponding folders in your ZenCart installation.  There are three files which must be copied:
+
+ /includes/languages/english/modules/payment/ccbill.php
+
+ /includes/modules/payment/ccbill.php
+
+ /ccbill_post_handler.php
+
+*Important*
+Before installation, if you have the old version of the ccbill payment gateway, remove it from the zencart admin then install the new code and configure within the admin as usual.
+
+
+=== Installing the Module ===
+
+In the top menu of your ZenCart admin interface, hover over “Modules” and select “Payment.”  If the files were uploaded correctly, an option for “Pay by Credit Card with CCBIll” will appear in the list.  Select this option, and click the “Install” button on the right.  When the module has been installed successfully, the options for the module will appear at the right.
+
+
+=== Configuring Your CCBill Account ===
+
+Before using the plugin, it’s necessary to configure a few things in your CCBill account.  Please ensure the CCBill settings are correct, or the payment module will not work.
+
+
+=== Enabling Dynamic Pricing ===
+
+Please work with your CCBill support representative to activate “Dynamic Pricing” for your account.  You can verify that dynamic pricing is active by selecting “Feature Summary” under the “Account Info” tab of your CCBill admin menu.  Dynamic pricing status appears at the bottom of the “Billing Tools” section.
+
+
+=== Creating a Salt / Encryption Key ===
+
+A “salt” is a string of random data used to make your encryption more secure.  You must contact CCBill Support to generate your salt.  Once set, it will be visible under the “Advanced” section of the “Sub Account Admin” menu.  It will appear in the “Encryption Key” field of the “Upgrade Security Setup Information” section.
+
+
+=== Disabling User Management ===
+
+Since this account will be used for dynamic pricing transactions rather than managing user subscription, user management must be disabled.
+
+In your CCBill admin interface, navigate to “Sub Account Admin” and select “User Management” from the left menu.  Select “Turn off User Management” in the top section.  
+
+Under “Username Settings,” select “Do Not Collect Usernames and Passwords.”
+
+
+=== Creating a New Billing Form ===
+
+The billing form is the CCBill form that will be displayed to customers after they choose to check out using CCBill.  The billing form accepts customer payment information, processes the payment, and returns the customer to your ZenCart store where a confirmation message is displayed.
+
+To create a billing form for use with ZenCart, navigate to the “Form Admin” section of your CCBill admin interface.  All existing forms will be displayed in a table.
+Click “Create New Form” in the left menu to create your new form.
+Select the appropriate option under “Billing Type.”  (In most cases, this will be “Credit Card.”)
+
+Select “Standard” under “Form Type” unless you intend to customize your form.
+
+Select the desired layout, and click “Submit” at the bottom of the page.
+
+Your new form has been created, and is visible in the table under “View All Forms.”  In this example, our new form is named “201cc.”  Be sure to note the name of your new form, as it will be required in the ZenCart configuration section.
+
+
+=== Configuring the New Billing Form ===
+
+Click the title of the newly-created form to edit it.  In the left menu, click “Basic.”
+
+Under “Basic,” select an Approval Redirect Time of 3 seconds, and a Denial Redirect Time of “None.”
+
+
+=== Configuring Your CCBill Account ===
+
+In your CCBill admin interface, navigate to “Sub Account Admin” and select “Basic” from the left menu. 
+ 
+= Site Name =
+
+Enter the URL of your ZenCart store under “Site Name”
+
+= Approval URL =
+
+Under Approval URL, enter the base URL for your ZenCart store, followed by: 
+
+/index.php?main_page=checkout_process&referer=ccbill&Action=CheckoutSuccess
+
+For example, if your ZenCart store is located at http://www.test.com, the Approval URL would be:
+
+http://www.test.com/index.php?main_page=checkout_process&referer=ccbill&Action=CheckoutSuccess
+
+If your ZenCart store is located at http://www.test.com/zen, then the Approval URL would be:
+
+http://www.test.com/zen/index.php?main_page=checkout_process&referer=ccbill&Action=CheckoutSuccess
+
+= Denial URL =
+
+Under Denial URL, enter the base URL for your ZenCart store, followed by: 
+
+/index.php?main_page=checkout_process&referer=ccbill&Action=CheckoutFailure
+
+For example, if your ZenCart store is located at http://www.test.com, the Denial URL would be:
+
+http://www.test.com/index.php?main_page=checkout_process&referer=ccbill&Action=CheckoutFailure
+
+If your ZenCart store is located at http://www.test.com/zen, then the Denial URL would be:
+
+http://www.test.com/zen/index.php?main_page=checkout_process&referer=ccbill&Action=CheckoutFailure
+
+= Redirect Time =
+
+Select an approval redirect time of 3 seconds, and a denial redirect time of “None.”
+
+
+= Background POST - Approval =
+
+Under Advanced form settings, Background POST Denial URL, enter the base URL for your ZenCart store, followed by: 
+
+/ccbill_post_handler.php?Action=Approval_Post
+
+= Background POST - Denial =
+
+Under Advanced form settings, Background POST Denial URL, enter the base URL for your ZenCart store, followed by: 
+
+/ccbill_post_handler.php?Action=Denial_Post
+
+
+=== Confirmation ===
+Your CCBill account is now configured. In your CCBill admin interface, navigate to “Sub Account Admin” and ensure the information displayed is correct.
+
+
+=== General Options ===
+
+In the top menu of your ZenCart admin interface, hover over “Modules” and select “Payment.”  Then, select “Pay by Credit Card with CCBIll.”  The options display on the right.
+
+Under “Transaction Currency,” select your desired currency.  CCBill currently supports the following currencies:
+
+ -US Dollar (USD)
+ -Euro (EUR)
+ -Australian Dollar (AUD)
+ -Canadian Dollar (CAD)
+ -Great Britain Pounds Sterling (GBP)
+ -Japanese Yen (JPY)
+
+
+=== CCBill Options ===
+
+= Enable CCBill =
+Check the top box to enable payments with CCBIll standard.
+
+= Client Account Number =
+Enter your CCBill client account number.
+
+= Client SubAccount Number =
+Enter your CCBill client sub-account number.
+
+= Form Name =
+Enter the name of the form created during CCBill account configuration.
+
+= Currency =
+Select the billing currency.  Ensure this selection matches the selection made in the “Localization -> Currencies” section of the ZenCart administration menu.
+
+= Salt =
+Enter your salt / encryption key obtained during CCBill configuration.
+Click “Update” at the bottom of the CCBill configuration section.  
+
+=== Confirmation ===
+You are now ready to process payments via CCBill!  Please conduct a few test transactions (using test data provided by CCBill) to ensure proper operation before enabling live billing mode in your CCBill account.
+
+
+
